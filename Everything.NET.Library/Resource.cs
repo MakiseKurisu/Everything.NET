@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace Everything.NET.Library
@@ -7,12 +8,35 @@ namespace Everything.NET.Library
     {
         public ResourceType Type;
         public string Name;
-        public long Size;
+        public ulong Size;
         public DateTime ModifiedTime;
 
-        public Resource(RawResult)
+        public Resource(RawResult obj)
         {
+            if (!Enum.TryParse(obj.type, true, out Type))
+            {
+                throw new ArgumentException("Invalid ResourceType enum.", "obj.type");
+            }
 
+            Name = obj.name;
+
+            if (String.IsNullOrEmpty(obj.size))
+            {
+                obj.size = "0";
+            }
+            Size = Convert.ToUInt64(obj.size);
+
+            ModifiedTime = DateTime.FromFileTime(Convert.ToInt64(obj.date_modified));
+        }
+
+        public static List<Resource> FromRawResults(RawResults r)
+        {
+            var list = new List<Resource>();
+            foreach (var result in r.results)
+            {
+                list.Add(new Resource(result));
+            }
+            return list;
         }
     }
 
