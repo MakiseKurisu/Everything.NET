@@ -9,14 +9,6 @@ namespace Everything.NET.Verbs
     [Verb("list", HelpText = "List all files under a folder.")]
     public class ListVerb: RequestParameter, IVerbBase
     {
-        /// <summary>
-        /// Target URI.
-        /// </summary>
-        protected Uri Uri;
-
-        [Value(0, MetaName = "URI", Required = true, HelpText = "Target URI.")]
-        public String _Uri { get => Uri.ToString(); set => Uri = new Uri(value); }
-
         [Usage]
         public static IEnumerable<Example> Examples
         {
