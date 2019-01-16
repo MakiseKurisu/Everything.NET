@@ -72,5 +72,15 @@ namespace Everything.NET.Library.Types
             // Return formatted number with suffix
             return readable.ToString("0.### ") + suffix;
         }
+
+        public static FileSize operator +(FileSize b, FileSize c)
+        {
+            return new FileSize(b.Raw + c.Raw);
+        }
+
+        public static FileSize operator -(FileSize b, FileSize c)
+        {
+            return new FileSize(b.Raw - c.Raw);
+        }
     }
 }
