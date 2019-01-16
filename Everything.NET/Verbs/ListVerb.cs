@@ -31,21 +31,17 @@ namespace Everything.NET.Verbs
             {
                 var ret = req.Get(this);
 
-                Console.WriteLine($"Name\t\t\t\t\t\t\t\t\tType\tSize\t\tModified Date");
+                WriteConsole("Name", Console.WindowWidth - 8 * 6);
+                WriteConsole("Type", 8);
+                WriteConsole("Size", 16);
+                WriteConsoleLine("Modified Date");
 
                 foreach (var i in ret)
                 {
-                    Console.Write($"{i.Name}");
-                    if (Console.CursorLeft < 72)
-                    {
-                        Console.Write(new string(' ', 72 - Console.CursorLeft));
-                    }
-                    Console.Write($"{i.Type}\t{i.Size}");
-                    if (Console.CursorLeft < 96)
-                    {
-                        Console.Write(new string(' ', 96 - Console.CursorLeft));
-                    }
-                    Console.WriteLine($"{i.ModifiedTime}");
+                    WriteConsole(i.Name, Console.WindowWidth - 8 * 6);
+                    WriteConsole(i.Type, 8);
+                    WriteConsole(i.Size, 16);
+                    WriteConsoleLine(i.ModifiedTime);
                 }
 
                 return 0;
