@@ -1,14 +1,21 @@
 ﻿using CommandLine;
+using CommandLine.Text;
+using Everything.NET.Library;
 using System;
 using System.Collections.Generic;
 
 namespace Everything.NET.Verbs
 {
     [Verb("download", HelpText = "Download a single file or every files under a folder.")]
-    public class DownloadVerb: IVerbBase
+    public class DownloadVerb: RequestParameter, IVerbBase
     {
-        [Value(0, Required = true, HelpText = "Target URI.")]
-        public String Uri { get; set; }
+        [Usage]
+        public static IEnumerable<Example> Examples
+        {
+            get => new List<Example>() {
+                new Example("Download a single file or every files under a folder.", new DownloadVerb { _Uri = @"http://www.example.com:8080/C:"})
+            };
+        }
 
         public int Action()
         {
