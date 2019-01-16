@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Everything.NET.Library.Types;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
@@ -8,7 +9,7 @@ namespace Everything.NET.Library
     {
         public ResourceType Type;
         public string Name;
-        public ulong Size;
+        public FileSize Size;
         public DateTime ModifiedTime;
 
         public Resource(RawResult obj)
@@ -24,7 +25,7 @@ namespace Everything.NET.Library
             {
                 obj.size = "0";
             }
-            Size = Convert.ToUInt64(obj.size);
+            Size = new FileSize(Convert.ToUInt64(obj.size));
 
             ModifiedTime = DateTime.FromFileTime(Convert.ToInt64(obj.date_modified));
         }
