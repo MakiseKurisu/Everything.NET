@@ -19,7 +19,14 @@ namespace Everything.NET.Verbs
 
         public int Action()
         {
-            throw new NotImplementedException();
+            using (var req = new Request(Uri))
+            {
+                req.LocateParent();
+
+                var ret = req.Get(this);
+
+                return 0;
+            }
         }
     }
 }

@@ -18,7 +18,7 @@ namespace Everything.NET
                     args = new string[] { "list", @"http://www.amcc.ip.or.kr/D:" };
                 }
 
-                Parser.Default.ParseArguments<DownloadVerb, ListVerb, SearchVerb>(args)
+                Parser.Default.ParseArguments<DownloadVerb, ListVerb, SearchVerb, SizeVerb>(args)
                     .MapResult(
                       (IVerbBase opts) => opts.Action(),
                       errs => 1);
