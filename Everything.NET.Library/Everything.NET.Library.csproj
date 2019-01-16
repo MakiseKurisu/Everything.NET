@@ -53,6 +53,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Resource.cs" />
     <Compile Include="SearchParameter.cs" />
+    <Compile Include="Types\FileSize.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
