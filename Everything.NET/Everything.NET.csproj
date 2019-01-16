@@ -67,6 +67,7 @@
     <Compile Include="Verbs\ListVerb.cs" />
     <Compile Include="Verbs\SearchVerb.cs" />
     <Compile Include="Verbs\IVerbBase.cs" />
+    <Compile Include="Verbs\SizeVerb.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
