@@ -1,5 +1,5 @@
 ﻿using System;
-using System.Linq;
+using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 
@@ -28,12 +28,12 @@ namespace Everything.NET.Library
             http.Dispose();
         }
 
-        public RawResults Get(RequestParameter param)
+        public List<Resource> Get(RequestParameter param)
         {
             return GetAsync(param).Result;
         }
 
-        public async Task<RawResults> GetAsync(RequestParameter param)
+        public async Task<List<Resource>> GetAsync(RequestParameter param)
         {
             var uri = new UriBuilder(http.BaseAddress)
             {
@@ -42,8 +42,8 @@ namespace Everything.NET.Library
 
             var get = await http.GetAsync(uri.ToString());
             var json = await get.Content.ReadAsStringAsync();
-
-            return Json.ToObject<RawResults>(json);
+            var raw = Json.ToObject<RawResults>(json);
+            return Resource.FromRawResults(raw);
         }
 
         public void LocateParent()

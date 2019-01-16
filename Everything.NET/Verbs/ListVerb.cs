@@ -33,7 +33,7 @@ namespace Everything.NET.Verbs
 
                 Console.WriteLine($"Name\tType\tSize\tModified Date");
 
-                foreach (var i in ret.results)
+                foreach (var i in ret)
                 {
                     Console.WriteLine($"{i.name}\t{i.type}\t{i.size}\t{i.date_modified}");
                 }
