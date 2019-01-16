@@ -8,7 +8,7 @@ namespace Everything.NET.Library
     /// Define parameters used in Request
     /// See https://www.voidtools.com/support/everything/http/ for definition and default value
     /// </summary>
-    public class RequestParameter
+    public class RequestParameter: CommonParameter
     {
         /// <summary>
         /// Return results as a JSON object if value is nonzero.
