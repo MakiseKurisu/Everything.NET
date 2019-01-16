@@ -7,26 +7,36 @@ using System.Collections.Generic;
 namespace Everything.NET.Verbs
 {
     [Verb("list", HelpText = "List all files under a folder.")]
-    public class ListVerb: VerbBase
+    public class ListVerb: RequestParameter, IVerbBase
     {
+        /// <summary>
+        /// Target URI.
+        /// </summary>
+        protected Uri Uri;
+
         [Value(0, MetaName = "URI", Required = true, HelpText = "Target URI.")]
-        public String Uri { get; set; }
+        public String _Uri { get => Uri.ToString(); set => Uri = new Uri(value); }
 
         [Usage]
         public static IEnumerable<Example> Examples
         {
             get => new List<Example>() {
-                new Example("List all files under a folder.", new ListVerb { Uri = @"http://example.org" })
+                new Example("List all files under a folder.", new ListVerb { _Uri = @"http://www.example.com:8080/C:", _sort = "name", _ascending = 1 })
             };
         }
 
-        public override int Action()
+        public int Action()
         {
             using (var req = new Request(Uri))
             {
-                var param = new RequestParameter();
+                var ret = req.Get(this);
 
-                var ret = req.Get(param);
+                Console.WriteLine($"Name\tType\tSize\tModified Date");
+
+                foreach (var i in ret.results)
+                {
+                    Console.WriteLine($"{i.name}\t{i.type}\t{i.size}\t{i.date_modified}");
+                }
 
                 return 0;
             }

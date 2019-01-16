@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CommandLine;
+using System;
 using System.ComponentModel;
 
 namespace Everything.NET.Library
@@ -10,30 +11,36 @@ namespace Everything.NET.Library
     public class RequestParameter
     {
         /// <summary>
-        /// return results as a JSON object if value is nonzero
+        /// Return results as a JSON object if value is nonzero.
         /// </summary>
-        public bool json;
+        protected bool json;
+
+        [Option('j', "json", Default = 1, HelpText = "Return results as a JSON object if value is nonzero.", Hidden = true, Required = false)]
+        public int _json { get => Convert.ToInt32(json); set => json = Convert.ToBoolean(value); }
 
         /// <summary>
-        /// where value can be one of the following: name, path, date_modified, or size
+        /// Where value can be one of the following: name, path, date_modified, or size.
         /// </summary>
-        public RequestParameterSortOption sort;
+        protected RequestParameterSortOption sort;
 
-        /// <summary>
-        /// sort by ascending order if value is nonzero
-        /// </summary>
-        public bool ascending;
-
-        public RequestParameter()
+        [Option('s', "sort", Default = "name", HelpText = "Where value can be one of the following: name, path, date_modified, or size.", Hidden = false, Required = false)]
+        public string _sort
         {
-            json = true;
-            sort = RequestParameterSortOption.name;
-            ascending = true;
+            get => Enum.GetName(typeof(RequestParameterSortOption), sort);
+            set => sort = Enum.TryParse(value, true, out sort) ? sort : RequestParameterSortOption.name;
         }
+
+        /// <summary>
+        /// Sort by ascending order if value is nonzero.
+        /// </summary>
+        protected bool ascending;
+
+        [Option('a', "ascending", Default = 1, HelpText = "Sort by ascending order if value is nonzero.", Hidden = false, Required = false)]
+        public int _ascending { get => Convert.ToInt32(ascending); set => ascending = Convert.ToBoolean(value); }
 
         public override string ToString()
         {
-            return $"json={Convert.ToInt32(json)}&sort={sort.ToString()}&ascending={Convert.ToInt32(ascending)}";
+            return $"json={_json}&sort={_sort}&ascending={_ascending}";
         }
     }
 
@@ -62,17 +69,5 @@ namespace Everything.NET.Library
         /// </summary>
         [Description("size")]
         size,
-    }
-
-    public static class RequestParameterSortOptionExtensions
-    {
-        public static string ToString(this RequestParameterSortOption val)
-        {
-            var attributes = (DescriptionAttribute[]) val
-               .GetType()
-               .GetField(val.ToString())
-               .GetCustomAttributes(typeof(DescriptionAttribute), false);
-            return attributes.Length > 0 ? attributes[0].Description : string.Empty;
-        }
     }
 }

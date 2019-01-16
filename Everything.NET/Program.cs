@@ -10,10 +10,12 @@ namespace Everything.NET
         {
             try
             {
+                Console.OutputEncoding = System.Text.Encoding.Unicode;
+
                 if (args.Length == 0)
                 {
                     //args = new string[] { "help" };
-                    args = new string[] { "list", @"http://www.amcc.ip.or.kr" };
+                    args = new string[] { "list", @"http://www.amcc.ip.or.kr/D:" };
                 }
 
                 Parser.Default.ParseArguments<DownloadVerb, ListVerb>(args)
