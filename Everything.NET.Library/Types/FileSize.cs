@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Everything.NET.Library.Types
+﻿namespace Everything.NET.Library.Types
 {
     public class FileSize
     {
+        public ulong Count { get; set; }
+
         public ulong Raw { get; set; }
 
         public FileSize(ulong s)
         {
+            Count = 1;
             Raw = s;
         }
 
@@ -19,7 +16,7 @@ namespace Everything.NET.Library.Types
 
         public FileSize(long s)
         {
-            Raw = (ulong) (s > 0 ?  s : -s);
+            Raw = (ulong) (s > 0 ? s : -s);
         }
 
         /// <summary>
@@ -75,12 +72,20 @@ namespace Everything.NET.Library.Types
 
         public static FileSize operator +(FileSize b, FileSize c)
         {
-            return new FileSize(b.Raw + c.Raw);
+            var a = new FileSize(b.Raw + c.Raw)
+            {
+                Count = b.Count + c.Count
+            };
+            return a;
         }
 
         public static FileSize operator -(FileSize b, FileSize c)
         {
-            return new FileSize(b.Raw - c.Raw);
+            var a = new FileSize(b.Raw - c.Raw)
+            {
+                Count = b.Count - c.Count
+            };
+            return a;
         }
     }
 }

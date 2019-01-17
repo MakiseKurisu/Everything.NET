@@ -9,10 +9,14 @@ namespace Everything.NET.Library.Types.Resources
     {
         public BaseResourceType Type { get; set; }
         public string Name { get; set; }
-        public virtual FileSize Size { get; set; }
+        public FileSize Size { get; set; }
         public DateTime ModifiedTime { get; set; }
 
-        public Uri Uri { get; set; }
+        public Uri Location { get; set; }
+        public Uri Uri => GetUri();
+        public virtual Uri GetUri() => new Uri(Location, Name);
+
+        public virtual FileSize GetSize(Action<BaseResource, List<BaseResource>> lambda) => Size;
 
         public BaseResource(RawResource obj)
         {
@@ -30,6 +34,11 @@ namespace Everything.NET.Library.Types.Resources
 
         public static List<BaseResource> FromRawQueryResult(Uri location, RawQueryResult r)
         {
+            var uri = new UriBuilder(location)
+            {
+                Query = string.Empty
+            };
+
             var list = new List<BaseResource>();
             foreach (var result in r.results)
             {
@@ -37,12 +46,12 @@ namespace Everything.NET.Library.Types.Resources
                 {
                     case BaseResourceType.File:
                         {
-                            list.Add(new FileResource(result) { Uri = location });
+                            list.Add(new FileResource(result) { Location = uri.Uri });
                             break;
                         }
                     case BaseResourceType.Folder:
                         {
-                            list.Add(new FolderResource(result) { Uri = location });
+                            list.Add(new FolderResource(result) { Location = uri.Uri });
                             break;
                         }
                 }

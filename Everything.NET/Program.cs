@@ -15,7 +15,7 @@ namespace Everything.NET
                 if (args.Length == 0)
                 {
                     //args = new string[] { "help" };
-                    args = new string[] { "list", @"http://www.amcc.ip.or.kr/D:/주문토끼" };
+                    args = new string[] { "size", @"http://www.amcc.ip.or.kr/D:/주문토끼/" };
                 }
 
                 Parser.Default.ParseArguments<DownloadVerb, ListVerb, SearchVerb, SizeVerb>(args)

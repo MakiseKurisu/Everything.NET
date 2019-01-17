@@ -40,6 +40,11 @@ namespace Everything.NET
             Console.Write(text.ToString());
         }
 
+        public void WriteConsoleLine()
+        {
+            Console.WriteLine();
+        }
+
         public void WriteConsoleLine<T>(T text)
         {
             Console.WriteLine(text.ToString());
