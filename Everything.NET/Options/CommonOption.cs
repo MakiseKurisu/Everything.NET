@@ -1,20 +1,12 @@
 ﻿using CommandLine;
 using System;
 
-namespace Everything.NET.Library
+namespace Everything.NET
 {
     public class CommonOption
     {
-        /// <summary>
-        /// Target URI.
-        /// </summary>
-        protected Uri Uri;
-
         [Value(0, MetaName = "URI", Required = true, HelpText = "Target URI.")]
-        public String _Uri { get => Uri.ToString(); set => Uri = new Uri(value); }
-
-        [Option('w', "width", Default = 20, HelpText = "Set column size.", Hidden = false, Required = false)]
-        public int _Width { get; set; }
+        public String uri { get; set; }
 
         public bool WriteConsole<T>(T text, int padding)
         {

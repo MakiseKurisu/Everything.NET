@@ -1,4 +1,4 @@
-﻿namespace Everything.NET.Library
+﻿namespace Everything.NET
 {
     public class SearchOption: CommonOption
     {
