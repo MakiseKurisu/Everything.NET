@@ -1,27 +1,28 @@
 ﻿using CommandLine;
 using CommandLine.Text;
 using Everything.NET.Library;
+using Everything.NET.Library.Types;
 using System;
 using System.Collections.Generic;
 
 namespace Everything.NET.Verbs
 {
     [Verb("list", HelpText = "List all files under a folder.")]
-    public class ListVerb: RequestParameter, IVerbBase
+    public class ListVerb: ListOption, IVerbBase
     {
         [Usage]
         public static IEnumerable<Example> Examples
         {
             get => new List<Example>() {
-                new Example("List all files under a folder.", new ListVerb { _Uri = @"http://www.example.com:8080/C:", _sort = "name", _ascending = 1 })
+                new Example("List all files under a folder.", new ListOption { uri = @"http://www.example.com:8080/C:", sort = "name", ascending = 1 })
             };
         }
 
         public int Action()
         {
-            using (var req = new Request(Uri))
+            using (var req = new Request(uri))
             {
-                var ret = req.Get(this);
+                var ret = req.Get(new BaseQuery(this));
 
                 WriteConsole("Name", Console.WindowWidth - 8 * 6);
                 WriteConsole("Type", 8);

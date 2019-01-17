@@ -5,8 +5,8 @@ namespace Everything.NET
 {
     public class CommonOption
     {
-        [Value(0, MetaName = "URI", Required = true, HelpText = "Target URI.")]
-        public String uri { get; set; }
+        [Value(0, MetaName = "uri", Required = true, HelpText = "Target URI.")]
+        public string uri { get; set; }
 
         public bool WriteConsole<T>(T text, int padding)
         {

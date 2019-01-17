@@ -1,4 +1,5 @@
 ﻿using Everything.NET.Library.RawTypes.Queries;
+using Everything.NET.Library.Types;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -29,12 +30,12 @@ namespace Everything.NET.Library
             http.Dispose();
         }
 
-        public List<Resource> Get(RawBaseQuery param)
+        public List<Resource> Get(BaseQuery param)
         {
             return GetAsync(param).Result;
         }
 
-        public async Task<List<Resource>> GetAsync(RawBaseQuery param)
+        public async Task<List<Resource>> GetAsync(BaseQuery param)
         {
             var uri = new UriBuilder(http.BaseAddress)
             {

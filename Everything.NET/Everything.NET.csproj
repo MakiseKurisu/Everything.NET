@@ -62,7 +62,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Options\CommonOption.cs" />
-    <Compile Include="Options\RequestOption.cs" />
+    <Compile Include="Options\ListOption.cs" />
     <Compile Include="Options\SearchOption.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
