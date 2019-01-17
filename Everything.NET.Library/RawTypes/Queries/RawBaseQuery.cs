@@ -4,7 +4,7 @@
     /// Define parameters used in Request
     /// See https://www.voidtools.com/support/everything/http/ for definition and default value
     /// </summary>
-    public class RawBaseRequest
+    public class RawBaseQuery
     {
         /// <summary>
         /// Return results as a JSON object if value is nonzero.
@@ -21,7 +21,7 @@
         /// </summary>
         public uint ascending;
 
-        public RawBaseRequest()
+        public RawBaseQuery()
         {
             json = 1;
             sort = "name";

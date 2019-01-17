@@ -4,7 +4,7 @@
     /// Define parameters used in Search
     /// See https://www.voidtools.com/support/everything/http/ for definition and default value
     /// </summary>
-    public class RawSearchQuery : RawBaseRequest
+    public class RawSearchQuery : RawBaseQuery
     {
         /// <summary>
         /// search text
