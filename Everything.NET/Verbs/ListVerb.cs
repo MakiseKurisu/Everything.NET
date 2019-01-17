@@ -1,6 +1,6 @@
 ﻿using CommandLine;
 using CommandLine.Text;
-using Everything.NET.Library;
+using Everything.NET.Library.Actions;
 using Everything.NET.Library.Types.Queries;
 using System;
 using System.Collections.Generic;
@@ -20,25 +20,22 @@ namespace Everything.NET.Verbs
 
         public int Action()
         {
-            using (var req = new Request(uri))
+            var ret = ListAction.Action(uri, new BaseQuery(this));
+
+            WriteConsole("Name", Console.WindowWidth - 8 * 6);
+            WriteConsole("Type", 8);
+            WriteConsole("Size", 16);
+            WriteConsoleLine("Modified Date");
+
+            foreach (var i in ret)
             {
-                var ret = req.Get(new BaseQuery(this));
-
-                WriteConsole("Name", Console.WindowWidth - 8 * 6);
-                WriteConsole("Type", 8);
-                WriteConsole("Size", 16);
-                WriteConsoleLine("Modified Date");
-
-                foreach (var i in ret)
-                {
-                    WriteConsole(i.Name, Console.WindowWidth - 8 * 6);
-                    WriteConsole(i.Type, 8);
-                    WriteConsole(i.Size, 16);
-                    WriteConsoleLine(i.ModifiedTime);
-                }
-
-                return 0;
+                WriteConsole(i.Name, Console.WindowWidth - 8 * 6);
+                WriteConsole(i.Type, 8);
+                WriteConsole(i.Size, 16);
+                WriteConsoleLine(i.ModifiedTime);
             }
+
+            return 0;
         }
     }
 }
