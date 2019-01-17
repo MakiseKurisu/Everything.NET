@@ -15,10 +15,7 @@ namespace Everything.NET.Library.Actions
 
         public static async Task<List<BaseResource>> ActionAsync(Uri uri, BaseQuery query)
         {
-            using (var req = new Request(uri))
-            {
-                return await req.GetAsync(query);
-            }
+            return await Request.GetAsync(uri, query);
         }
     }
 }

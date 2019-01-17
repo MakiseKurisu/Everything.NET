@@ -10,42 +10,30 @@ using System.Threading.Tasks;
 
 namespace Everything.NET.Library
 {
-    public class Request: IDisposable
+    public static class Request
     {
-        private HttpClient http;
+        private static HttpClient http;
 
-        public Request(Uri uri)
+        static Request()
         {
-            http = new HttpClient
-            {
-                BaseAddress =
-                    new UriBuilder(uri)
-                    {
-                        Query = String.Empty
-                    }.Uri
-            };
+            http = new HttpClient();
         }
 
-        public void Dispose()
+        public static List<BaseResource> Get(Uri u, BaseQuery param)
         {
-            http.Dispose();
+            return GetAsync(u, param).Result;
         }
 
-        public List<BaseResource> Get(BaseQuery param)
+        public static async Task<List<BaseResource>> GetAsync(Uri uri, BaseQuery param)
         {
-            return GetAsync(param).Result;
-        }
-
-        public async Task<List<BaseResource>> GetAsync(BaseQuery param)
-        {
-            var uri = new UriBuilder(http.BaseAddress)
+            uri = new UriBuilder(uri)
             {
                 Query = param.ToString()
-            };
+            }.Uri;
 
             using (var token = new CancellationTokenSource())
             {
-                var get = await http.GetAsync(uri.Uri, HttpCompletionOption.ResponseHeadersRead, token.Token);
+                var get = await http.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead, token.Token);
 
                 var ctype = get.Content.Headers.ContentType;
                 var jsontype = new MediaTypeHeaderValue("application/json");
@@ -59,21 +47,24 @@ namespace Everything.NET.Library
 
                 var raw = Json.ToObject<RawQueryResult>(json);
 
-                return BaseResource.FromRawQueryResult(uri.Uri, raw);
+                return BaseResource.FromRawQueryResult(uri, raw);
             }
         }
 
-        public async Task<HttpResponseMessage> HeadAsync()
+        public static async Task<HttpResponseMessage> HeadAsync(Uri uri)
         {
-            var uri = new UriBuilder(http.BaseAddress);
+            uri = new UriBuilder(uri)
+            {
+                Query = String.Empty
+            }.Uri;
 
-            var header = await http.SendAsync(new HttpRequestMessage(HttpMethod.Head, uri.Uri), HttpCompletionOption.ResponseHeadersRead);
+            var header = await http.SendAsync(new HttpRequestMessage(HttpMethod.Head, uri), HttpCompletionOption.ResponseHeadersRead);
 
             if (header.StatusCode == System.Net.HttpStatusCode.BadRequest)
             {
                 using (var token = new CancellationTokenSource())
                 {
-                    header = await http.GetAsync(uri.Uri, HttpCompletionOption.ResponseHeadersRead, token.Token);
+                    header = await http.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead, token.Token);
                     token.Cancel();
                 }
             }
