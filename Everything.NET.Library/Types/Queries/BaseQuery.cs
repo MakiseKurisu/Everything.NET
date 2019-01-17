@@ -28,11 +28,7 @@ namespace Everything.NET.Library.Types.Queries
         public BaseQuery(RawBaseQuery raw)
         {
             json = Convert.ToBoolean(raw.json);
-            var ret = Enum.TryParse(raw.sort, true, out sort);
-            if (!ret)
-            {
-                throw new ArgumentOutOfRangeException("RawBaseQuery.sort", raw.sort, "Invalid value for RawBaseQuery.sort");
-            }
+            sort = (BaseQuerySortOption) Enum.Parse(typeof(BaseQuerySortOption), raw.sort, true);
             ascending = Convert.ToBoolean(raw.ascending);
         }
 

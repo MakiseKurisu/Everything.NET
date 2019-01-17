@@ -16,16 +16,7 @@ namespace Everything.NET.Library.Types.Resources
 
         public BaseResource(RawResource obj)
         {
-            BaseResourceType type;
-            if (!Enum.TryParse(obj.type, true, out type))
-            {
-                throw new ArgumentException("Invalid ResourceType enum.", "obj.type");
-            }
-            else
-            {
-                Type = type;
-            }
-
+            Type = (BaseResourceType) Enum.Parse(typeof(BaseResourceType), obj.type, true);
             Name = obj.name;
 
             if (String.IsNullOrEmpty(obj.size))
@@ -42,13 +33,7 @@ namespace Everything.NET.Library.Types.Resources
             var list = new List<BaseResource>();
             foreach (var result in r.results)
             {
-                BaseResourceType type;
-                if (!Enum.TryParse(result.type, true, out type))
-                {
-                    throw new ArgumentException("Invalid ResourceType enum.", "obj.type");
-                }
-
-                switch (type)
+                switch ((BaseResourceType) Enum.Parse(typeof(BaseResourceType), result.type, true))
                 {
                     case BaseResourceType.File:
                         {
