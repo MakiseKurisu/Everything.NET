@@ -1,12 +1,9 @@
-﻿using System;
-using System.ComponentModel;
-
-namespace Everything.NET.Library
+﻿namespace Everything.NET.Library.RawTypes
 {
     /// <summary>
     /// Basic query result
     /// </summary>
-    public class RawResult
+    public class RawResource
     {
         /// <summary>
         /// Type of object, as in ResultType
@@ -27,13 +24,5 @@ namespace Everything.NET.Library
         /// Object's modified date
         /// </summary>
         public string date_modified;
-    }
-
-    /// <summary>
-    /// Json return object
-    /// </summary>
-    public class RawResults
-    {
-        public RawResult[] results;
     }
 }

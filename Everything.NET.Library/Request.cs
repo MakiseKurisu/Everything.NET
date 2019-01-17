@@ -1,4 +1,5 @@
-﻿using Everything.NET.Library.RawTypes.Queries;
+﻿using Everything.NET.Library.RawTypes;
+using Everything.NET.Library.RawTypes.Queries;
 using Everything.NET.Library.Types;
 using System;
 using System.Collections.Generic;
@@ -44,8 +45,8 @@ namespace Everything.NET.Library
 
             var get = await http.GetAsync(uri.ToString());
             var json = await get.Content.ReadAsStringAsync();
-            var raw = Json.ToObject<RawResults>(json);
-            return Resource.FromRawResults(raw);
+            var raw = Json.ToObject<RawQueryResult>(json);
+            return Resource.FromRawQueryResult(raw);
         }
 
         public void LocateParent()

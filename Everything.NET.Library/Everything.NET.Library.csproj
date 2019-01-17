@@ -43,12 +43,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Json.cs" />
-    <Compile Include="RawResult.cs" />
+    <Compile Include="RawTypes\RawQueryResult.cs" />
     <Compile Include="RawTypes\Queries\RawBaseQuery.cs" />
     <Compile Include="RawTypes\Queries\RawSearchQuery.cs" />
+    <Compile Include="RawTypes\RawResource.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Resource.cs" />
+    <Compile Include="Types\Resource.cs" />
     <Compile Include="Types\BaseQuery.cs" />
     <Compile Include="Types\FileSize.cs" />
     <Compile Include="Types\SearchQuery.cs" />

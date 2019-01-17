@@ -1,9 +1,9 @@
-﻿using Everything.NET.Library.Types;
+﻿using Everything.NET.Library.RawTypes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace Everything.NET.Library
+namespace Everything.NET.Library.Types
 {
     public class Resource
     {
@@ -12,7 +12,7 @@ namespace Everything.NET.Library
         public FileSize Size;
         public DateTime ModifiedTime;
 
-        public Resource(RawResult obj)
+        public Resource(RawResource obj)
         {
             if (!Enum.TryParse(obj.type, true, out Type))
             {
@@ -30,10 +30,10 @@ namespace Everything.NET.Library
             ModifiedTime = DateTime.FromFileTime(Convert.ToInt64(obj.date_modified));
         }
 
-        public static List<Resource> FromRawResults(RawResults r)
+        public static List<Resource> FromRawQueryResult(RawQueryResult r)
         {
             var list = new List<Resource>();
-            foreach (var result in r.results)
+            foreach (var result in r.resources)
             {
                 list.Add(new Resource(result));
             }
