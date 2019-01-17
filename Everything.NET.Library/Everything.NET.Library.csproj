@@ -54,6 +54,8 @@
     <Compile Include="Types\Queries\BaseQuery.cs" />
     <Compile Include="Types\FileSize.cs" />
     <Compile Include="Types\Queries\SearchQuery.cs" />
+    <Compile Include="Types\Resources\FileResource.cs" />
+    <Compile Include="Types\Resources\FolderResource.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
