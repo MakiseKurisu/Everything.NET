@@ -15,15 +15,15 @@ namespace Everything.NET.Library.Types.Resources
             return uri.Uri;
         }
 
-        public override FileSize GetSize(Action<BaseResource, List<BaseResource>> lambda)
+        public override async Task<FileSize> GetSize(Action<BaseResource, List<BaseResource>> lambda)
         {
-            var contents = ListAction.Action(GetUri(), new Queries.BaseQuery());
+            var contents = await ListAction.ActionAsync(GetUri(), new Queries.BaseQuery());
             lambda(this, contents);
 
             var sizeLock = new object();
-            Parallel.ForEach(contents, c =>
+            Parallel.ForEach(contents, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, async c =>
             {
-                var s = c.GetSize(lambda);
+                var s = await c.GetSize(lambda);
                 lock (sizeLock)
                 {
                     Size += s;

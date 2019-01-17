@@ -19,7 +19,7 @@ namespace Everything.NET.Library.Actions
             var parent = uri.LocateParent();
 
             var content = await Request.GetAsync(parent, new Types.Queries.BaseQuery());
-            return content.Find(r => (r.GetUri().Equals(uri))).GetSize(lambda);
+            return await content.Find(r => (r.GetUri().Equals(uri))).GetSize(lambda);
         }
     }
 }

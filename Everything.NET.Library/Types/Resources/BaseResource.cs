@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Threading.Tasks;
 
 namespace Everything.NET.Library.Types.Resources
 {
@@ -16,7 +17,7 @@ namespace Everything.NET.Library.Types.Resources
         public Uri Uri => GetUri();
         public virtual Uri GetUri() => new Uri(Location, Name);
 
-        public virtual FileSize GetSize(Action<BaseResource, List<BaseResource>> lambda) => Size;
+        public async virtual Task<FileSize> GetSize(Action<BaseResource, List<BaseResource>> lambda) => await new Task<FileSize>(() => Size);
 
         public BaseResource(RawResource obj)
         {
