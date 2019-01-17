@@ -1,11 +1,9 @@
 ﻿using CommandLine;
-using Everything.NET.Library.RawTypes.Queries;
-using System;
 using System.ComponentModel;
 
 namespace Everything.NET.Library
 {
-    public class RequestParameter: RawBaseRequest
+    public class ListOption: CommonOption
     {
         [Option('j', "json", Default = true, HelpText = "Return results as a JSON object if value is nonzero.", Hidden = true, Required = false)]
         public bool _json { get; set; }

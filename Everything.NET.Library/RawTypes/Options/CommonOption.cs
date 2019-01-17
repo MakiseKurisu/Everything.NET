@@ -3,7 +3,7 @@ using System;
 
 namespace Everything.NET.Library
 {
-    public class CommonParameter
+    public class CommonOption
     {
         /// <summary>
         /// Target URI.
