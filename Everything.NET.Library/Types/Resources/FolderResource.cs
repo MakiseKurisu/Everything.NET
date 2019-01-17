@@ -21,9 +21,9 @@ namespace Everything.NET.Library.Types.Resources
             lambda(this, contents);
 
             var sizeLock = new object();
-            Parallel.ForEach(contents, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, async c =>
+            Parallel.ForEach(contents, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount }, c =>
             {
-                var s = await c.GetSize(lambda);
+                var s = c.GetSize(lambda).Result;
                 lock (sizeLock)
                 {
                     Size += s;
