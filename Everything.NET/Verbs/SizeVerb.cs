@@ -18,12 +18,7 @@ namespace Everything.NET.Verbs
 
         public int Action()
         {
-            using (var req = new Request(uri))
-            {
-                req.LocateParent();
-
-                return 0;
-            }
+            return 0;
         }
     }
 }
