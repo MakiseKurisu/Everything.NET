@@ -50,7 +50,7 @@
     <Compile Include="RawTypes\RawResource.cs" />
     <Compile Include="Request.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Types\Resource.cs" />
+    <Compile Include="Types\Resources\BaseResource.cs" />
     <Compile Include="Types\Queries\BaseQuery.cs" />
     <Compile Include="Types\FileSize.cs" />
     <Compile Include="Types\Queries\SearchQuery.cs" />

@@ -3,9 +3,9 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 
-namespace Everything.NET.Library.Types
+namespace Everything.NET.Library.Types.Resources
 {
-    public class Resource
+    public class BaseResource
     {
         public ResourceType Type;
         public string Name;
@@ -14,7 +14,7 @@ namespace Everything.NET.Library.Types
 
         public Uri Uri;
 
-        public Resource(RawResource obj)
+        public BaseResource(RawResource obj)
         {
             if (!Enum.TryParse(obj.type, true, out Type))
             {
@@ -32,12 +32,12 @@ namespace Everything.NET.Library.Types
             ModifiedTime = DateTime.FromFileTime(Convert.ToInt64(obj.date_modified));
         }
 
-        public static List<Resource> FromRawQueryResult(Uri location, RawQueryResult r)
+        public static List<BaseResource> FromRawQueryResult(Uri location, RawQueryResult r)
         {
-            var list = new List<Resource>();
+            var list = new List<BaseResource>();
             foreach (var result in r.results)
             {
-                list.Add(new Resource(result) { Uri = location});
+                list.Add(new BaseResource(result) { Uri = location});
             }
             return list;
         }
