@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actions\ListAction.cs" />
+    <Compile Include="Actions\SizeAction.cs" />
     <Compile Include="Json.cs" />
     <Compile Include="RawTypes\RawQueryResult.cs" />
     <Compile Include="RawTypes\Queries\RawBaseQuery.cs" />
