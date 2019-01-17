@@ -7,18 +7,23 @@ namespace Everything.NET.Library.Types.Resources
 {
     public class BaseResource
     {
-        public ResourceType Type;
-        public string Name;
-        public FileSize Size;
-        public DateTime ModifiedTime;
+        public BaseResourceType Type { get; set; }
+        public string Name { get; set; }
+        public virtual FileSize Size { get; set; }
+        public DateTime ModifiedTime { get; set; }
 
-        public Uri Uri;
+        public Uri Uri { get; set; }
 
         public BaseResource(RawResource obj)
         {
-            if (!Enum.TryParse(obj.type, true, out Type))
+            BaseResourceType type;
+            if (!Enum.TryParse(obj.type, true, out type))
             {
                 throw new ArgumentException("Invalid ResourceType enum.", "obj.type");
+            }
+            else
+            {
+                Type = type;
             }
 
             Name = obj.name;
@@ -37,13 +42,31 @@ namespace Everything.NET.Library.Types.Resources
             var list = new List<BaseResource>();
             foreach (var result in r.results)
             {
-                list.Add(new BaseResource(result) { Uri = location});
+                BaseResourceType type;
+                if (!Enum.TryParse(result.type, true, out type))
+                {
+                    throw new ArgumentException("Invalid ResourceType enum.", "obj.type");
+                }
+
+                switch (type)
+                {
+                    case BaseResourceType.File:
+                        {
+                            list.Add(new FileResource(result) { Uri = location });
+                            break;
+                        }
+                    case BaseResourceType.Folder:
+                        {
+                            list.Add(new FolderResource(result) { Uri = location });
+                            break;
+                        }
+                }
             }
             return list;
         }
     }
 
-    public enum ResourceType
+    public enum BaseResourceType
     {
         /// <summary>
         /// Object is a file.
