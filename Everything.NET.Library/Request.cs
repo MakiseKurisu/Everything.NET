@@ -1,6 +1,6 @@
 ﻿using Everything.NET.Library.RawTypes;
-using Everything.NET.Library.RawTypes.Queries;
 using Everything.NET.Library.Types;
+using Everything.NET.Library.Types.Queries;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;

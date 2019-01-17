@@ -1,7 +1,7 @@
 ﻿using Everything.NET.Library.RawTypes.Queries;
 using System;
 
-namespace Everything.NET.Library.Types
+namespace Everything.NET.Library.Types.Queries
 {
     /// <summary>
     /// Define parameters used in Search

@@ -1,7 +1,7 @@
 ﻿using CommandLine;
 using CommandLine.Text;
 using Everything.NET.Library;
-using Everything.NET.Library.Types;
+using Everything.NET.Library.Types.Queries;
 using System;
 using System.Collections.Generic;
 
