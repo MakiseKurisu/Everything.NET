@@ -33,7 +33,7 @@ namespace Everything.NET.Library.Types
         public static List<Resource> FromRawQueryResult(RawQueryResult r)
         {
             var list = new List<Resource>();
-            foreach (var result in r.resources)
+            foreach (var result in r.results)
             {
                 list.Add(new Resource(result));
             }
