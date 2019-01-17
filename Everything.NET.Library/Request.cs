@@ -44,9 +44,12 @@ namespace Everything.NET.Library
             };
 
             var get = await http.GetAsync(uri.ToString());
+
             var json = await get.Content.ReadAsStringAsync();
+
             var raw = Json.ToObject<RawQueryResult>(json);
-            return Resource.FromRawQueryResult(raw);
+
+            return Resource.FromRawQueryResult(uri.Uri, raw);
         }
 
         public void LocateParent()

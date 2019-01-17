@@ -12,6 +12,8 @@ namespace Everything.NET.Library.Types
         public FileSize Size;
         public DateTime ModifiedTime;
 
+        public Uri Uri;
+
         public Resource(RawResource obj)
         {
             if (!Enum.TryParse(obj.type, true, out Type))
@@ -30,12 +32,12 @@ namespace Everything.NET.Library.Types
             ModifiedTime = DateTime.FromFileTime(Convert.ToInt64(obj.date_modified));
         }
 
-        public static List<Resource> FromRawQueryResult(RawQueryResult r)
+        public static List<Resource> FromRawQueryResult(Uri location, RawQueryResult r)
         {
             var list = new List<Resource>();
             foreach (var result in r.results)
             {
-                list.Add(new Resource(result));
+                list.Add(new Resource(result) { Uri = location});
             }
             return list;
         }
