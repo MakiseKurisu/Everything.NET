@@ -20,7 +20,7 @@ namespace Everything.NET.Verbs
 
         public int Action()
         {
-            var ret = ListAction.Action(uri, new BaseQuery(this));
+            var ret = ListAction.Action(new Uri(uri), new BaseQuery(this));
 
             WriteConsole("Name", Console.WindowWidth - 8 * 6);
             WriteConsole("Type", 8);

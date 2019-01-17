@@ -8,17 +8,6 @@ namespace Everything.NET.Library.Actions
 {
     public class ListAction
     {
-        public static List<BaseResource> Action(string uri, BaseQuery query)
-        {
-            return ActionAsync(new Uri(uri), query).Result;
-        }
-
-        public static async Task<List<BaseResource>> ActionAsync(string uri, BaseQuery query)
-        {
-            var ret = await ActionAsync(new Uri(uri), query);
-            return ret;
-        }
-
         public static List<BaseResource> Action(Uri uri, BaseQuery query)
         {
             return ActionAsync(uri, query).Result;
@@ -28,8 +17,7 @@ namespace Everything.NET.Library.Actions
         {
             using (var req = new Request(uri))
             {
-                var ret = await req.GetAsync(query);
-                return ret;
+                return await req.GetAsync(query);
             }
         }
     }

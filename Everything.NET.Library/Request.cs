@@ -24,8 +24,6 @@ namespace Everything.NET.Library
             };
         }
 
-        public Request(string server) : this(new Uri(server)) { }
-
         public void Dispose()
         {
             http.Dispose();
