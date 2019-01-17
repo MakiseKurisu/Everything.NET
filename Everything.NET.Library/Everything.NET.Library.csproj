@@ -44,6 +44,7 @@
   <ItemGroup>
     <Compile Include="Actions\ListAction.cs" />
     <Compile Include="Actions\SizeAction.cs" />
+    <Compile Include="Extensions\UriExtensions.cs" />
     <Compile Include="Json.cs" />
     <Compile Include="RawTypes\RawQueryResult.cs" />
     <Compile Include="RawTypes\Queries\RawBaseQuery.cs" />

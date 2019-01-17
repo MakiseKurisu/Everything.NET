@@ -4,6 +4,8 @@ using Everything.NET.Library.Types.Resources;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Net.Http.Headers;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Everything.NET.Library
@@ -41,23 +43,42 @@ namespace Everything.NET.Library
                 Query = param.ToString()
             };
 
-            var get = await http.GetAsync(uri.ToString());
+            using (var token = new CancellationTokenSource())
+            {
+                var get = await http.GetAsync(uri.Uri, HttpCompletionOption.ResponseHeadersRead, token.Token);
 
-            var json = await get.Content.ReadAsStringAsync();
+                var ctype = get.Content.Headers.ContentType;
+                var jsontype = new MediaTypeHeaderValue("application/json");
+                if (param.json && !ctype.Equals(jsontype))
+                {
+                    token.Cancel();
+                    throw new HttpRequestException($"HTTP returned unexpected ContentType {ctype}, expecting {jsontype}.");
+                }
 
-            var raw = Json.ToObject<RawQueryResult>(json);
+                var json = await get.Content.ReadAsStringAsync();
 
-            return BaseResource.FromRawQueryResult(uri.Uri, raw);
+                var raw = Json.ToObject<RawQueryResult>(json);
+
+                return BaseResource.FromRawQueryResult(uri.Uri, raw);
+            }
         }
 
-        public void LocateParent()
+        public async Task<HttpResponseMessage> HeadAsync()
         {
-            LocateChild("..");
-        }
+            var uri = new UriBuilder(http.BaseAddress);
 
-        public void LocateChild(String child)
-        {
-            http.BaseAddress = new Uri(http.BaseAddress, child);
+            var header = await http.SendAsync(new HttpRequestMessage(HttpMethod.Head, uri.Uri), HttpCompletionOption.ResponseHeadersRead);
+
+            if (header.StatusCode == System.Net.HttpStatusCode.BadRequest)
+            {
+                using (var token = new CancellationTokenSource())
+                {
+                    header = await http.GetAsync(uri.Uri, HttpCompletionOption.ResponseHeadersRead, token.Token);
+                    token.Cancel();
+                }
+            }
+
+            return header;
         }
     }
 }
