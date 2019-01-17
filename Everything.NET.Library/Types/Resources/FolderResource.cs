@@ -23,9 +23,10 @@ namespace Everything.NET.Library.Types.Resources
             var sizeLock = new object();
             Parallel.ForEach(contents, c =>
             {
+                var s = c.GetSize(lambda);
                 lock (sizeLock)
                 {
-                    Size += c.GetSize(lambda);
+                    Size += s;
                 }
             });
             return Size;
