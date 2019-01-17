@@ -19,7 +19,7 @@ namespace Everything.NET.Verbs
 
         public int Action()
         {
-            var start = new TimeSpan();
+            var start = new TimeSpan(DateTime.Now.Ticks);
 
             var target = new Uri(uri);
             var size = SizeAction.Action(target, (folder, content) =>
@@ -27,7 +27,7 @@ namespace Everything.NET.Verbs
                 WriteConsoleLine($"Found subfolder {folder.Uri.LocalPath} with {content.Count} pending resources.");
             });
 
-            var end = new TimeSpan();
+            var end = new TimeSpan(DateTime.Now.Ticks);
 
             WriteConsoleLine();
             WriteConsoleLine($"Operation completed in {end - start}.");
