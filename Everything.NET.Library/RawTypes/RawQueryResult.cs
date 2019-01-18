@@ -5,6 +5,7 @@
     /// </summary>
     public class RawQueryResult
     {
+        public uint totalResults;
         public RawResource[] results;
     }
 }
