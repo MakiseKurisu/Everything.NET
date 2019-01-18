@@ -17,7 +17,17 @@ namespace Everything.NET.Library.Types.Resources
 
         public async override Task<FileSize> GetSize(Action<BaseResource, List<BaseResource>> lambda)
         {
-            var contents = await ListAction.Action(GetUri(), new Queries.BaseQuery());
+            List<BaseResource> contents;
+
+            await Request.GetLock();
+            try
+            {
+                contents = await ListAction.Action(GetUri(), new Queries.BaseQuery());
+            }
+            finally
+            {
+                Request.ReleaseLock();
+            }
 
             lambda(this, contents);
 
