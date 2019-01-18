@@ -8,7 +8,7 @@ namespace Everything.NET
         [Value(0, MetaName = "uri", Required = true, HelpText = "Target URI.")]
         public string uri { get; set; }
 
-        [Option("verbose", Default = false, HelpText = "Target URI.", Hidden = false, Required = false)]
+        [Option("verbose", Default = false, HelpText = "Display the extra information.", Hidden = false, Required = false)]
         public bool verbose { get; set; }
 
         public bool WriteConsole<T>(T text, int padding)
