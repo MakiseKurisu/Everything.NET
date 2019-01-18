@@ -22,9 +22,9 @@ namespace Everything.NET.Library
             Console.WriteLine($"{semaphore} created with{Environment.ProcessorCount} count");
         }
 
-        public static void GetLock()
+        public static Task GetLock()
         {
-            semaphore.Wait();
+            return semaphore.WaitAsync();
         }
 
         public static int ReleaseLock()
