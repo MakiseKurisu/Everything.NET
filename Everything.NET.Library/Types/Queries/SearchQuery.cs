@@ -72,7 +72,7 @@ namespace Everything.NET.Library.Types.Queries
         public override string ToString()
         {
             return base.ToString()
-                + $"search={search}&offset={offset}&count={count}"
+                + $"&search={search}&offset={offset}&count={count}"
                 + $"&case={Convert.ToUInt32(@case)}&wholeword={Convert.ToUInt32(wholeword)}"
                 + $"&path={Convert.ToUInt32(path)}&regex={Convert.ToUInt32(regex)}&diacritics={Convert.ToUInt32(diacritics)}"
                 + $"&path_column={Convert.ToUInt32(path_column)}&size_column={Convert.ToUInt32(size_column)}"
