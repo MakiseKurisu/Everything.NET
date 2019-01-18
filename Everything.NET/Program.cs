@@ -17,7 +17,7 @@ namespace Everything.NET
                 //args = new string[] { "help" };
                 //args = new string[] { "list", @"http://www.amcc.ip.or.kr/E:/BaiduNetdiskDownload/" };
                 //args = new string[] { "size", @"http://www.amcc.ip.or.kr/E:/BaiduNetdiskDownload/" };
-                args = new string[] { "search", @"http://www.amcc.ip.or.kr/", "-s", @"E:\BaiduNetDIskDownload" };
+                args = new string[] { "search", @"http://www.amcc.ip.or.kr/", "-s", @"E:\BaiduNetDIskDownload", "--size_column", "1", "--date_modified_column", "1" };
                 //args = new string[] { "download", @"http://www.amcc.ip.or.kr/E:/금서목록 3기/" };
             }
 #endif
