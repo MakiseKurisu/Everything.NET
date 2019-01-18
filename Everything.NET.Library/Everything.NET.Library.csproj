@@ -43,6 +43,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Actions\ListAction.cs" />
+    <Compile Include="Actions\SearchAction.cs" />
     <Compile Include="Actions\SizeAction.cs" />
     <Compile Include="Extensions\UriExtensions.cs" />
     <Compile Include="Json.cs" />
