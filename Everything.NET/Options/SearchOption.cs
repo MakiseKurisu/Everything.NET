@@ -11,7 +11,7 @@ namespace Everything.NET
         [Option('o', "offset", Default = 0u, HelpText = "Display results from the nth result.", Hidden = false, Required = false)]
         public uint offset { get; set; }
 
-        [Option('c', "count", Default = 0u, HelpText = "Return no more than value results.", Hidden = false, Required = false)]
+        [Option('c', "count", Default = 4294967295u, HelpText = "Return no more than value results.", Hidden = false, Required = false)]
         public uint count { get; set; }
 
         [Option('i', "case", Default = 0u, HelpText = "Match case if value is nonzero.", Hidden = false, Required = false)]
