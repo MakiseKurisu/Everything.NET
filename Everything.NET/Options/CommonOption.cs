@@ -53,6 +53,18 @@ namespace Everything.NET
             Console.WriteLine(text.ToString());
         }
 
+        public bool WriteVerbose<T>(T text, int padding)
+        {
+            if (verbose)
+            {
+                return WriteConsole(text, padding);
+            }
+            else
+            {
+                return true;
+            }
+        }
+
         public void WriteVerboseLine()
         {
             if (verbose)
