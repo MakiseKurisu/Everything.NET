@@ -35,13 +35,13 @@ namespace Everything.NET
         [Option("size_column", Default = 0u, HelpText = "List the result's size in the json object if value is nonzero.", Hidden = false, Required = false)]
         public uint size_column { get; set; }
 
-        [Option( "date_modified_column", Default = 0u, HelpText = "List the result's modified date in the json object if value is nonzero.", Hidden = false, Required = false)]
+        [Option("date_modified_column", Default = 0u, HelpText = "List the result's modified date in the json object if value is nonzero.", Hidden = false, Required = false)]
         public uint date_modified_column { get; set; }
 
         [Option("date_created_column", Default = 0u, HelpText = "List the result's creation date in the json object if value is nonzero.", Hidden = false, Required = false)]
         public uint date_created_column { get; set; }
 
-        [Option( "attributes_column", Default = 0u, HelpText = "List the result's attributes in the json object if value is nonzero.", Hidden = false, Required = false)]
+        [Option("attributes_column", Default = 0u, HelpText = "List the result's attributes in the json object if value is nonzero.", Hidden = false, Required = false)]
         public uint attributes_column { get; set; }
     }
 }
