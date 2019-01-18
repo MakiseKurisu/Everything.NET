@@ -8,6 +8,9 @@ namespace Everything.NET
         [Value(0, MetaName = "uri", Required = true, HelpText = "Target URI.")]
         public string uri { get; set; }
 
+        [Option("verbose", Default = false, HelpText = "Target URI.", Hidden = false, Required = false)]
+        public bool verbose { get; set; }
+
         public bool WriteConsole<T>(T text, int padding)
         {
             padding = padding < 0 ? 0 : padding;
@@ -48,6 +51,22 @@ namespace Everything.NET
         public void WriteConsoleLine<T>(T text)
         {
             Console.WriteLine(text.ToString());
+        }
+
+        public void WriteVerboseLine()
+        {
+            if (verbose)
+            {
+                Console.WriteLine();
+            }
+        }
+
+        public void WriteVerboseLine<T>(T text)
+        {
+            if (verbose)
+            {
+                Console.WriteLine(text.ToString());
+            }
         }
     }
 }
