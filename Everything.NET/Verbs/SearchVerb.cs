@@ -19,6 +19,7 @@ namespace Everything.NET.Verbs
 
         public async Task<int> Action()
         {
+            await Task.Delay(0);
             throw new NotImplementedException();
         }
     }
