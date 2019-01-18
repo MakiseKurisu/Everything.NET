@@ -8,25 +8,26 @@ namespace Everything.NET
     {
         static void Main(string[] args)
         {
-            try
-            {
-                Console.OutputEncoding = System.Text.Encoding.Unicode;
+            AppDomain.CurrentDomain.UnhandledException += UnhandledExceptionHandler;
 
-                if (args.Length == 0)
-                {
-                    //args = new string[] { "help" };
-                    args = new string[] { "size", @"http://www.amcc.ip.or.kr/D:/주문토끼/" };
-                }
+            Console.OutputEncoding = System.Text.Encoding.Unicode;
 
-                Parser.Default.ParseArguments<DownloadVerb, ListVerb, SearchVerb, SizeVerb>(args)
-                    .MapResult(
-                      (IVerbBase opts) => opts.Action().Result,
-                      errs => 1);
-            }
-            catch (Exception ex)
+            if (args.Length == 0)
             {
-                Console.WriteLine($"{ex.ToString()}");
+                //args = new string[] { "help" };
+                args = new string[] { "size", @"http://www.amcc.ip.or.kr/D:/주문토끼/" };
             }
+
+            Parser.Default.ParseArguments<DownloadVerb, ListVerb, SearchVerb, SizeVerb>(args)
+                .MapResult(
+                  (IVerbBase opts) => opts.Action().Result,
+                  errs => 1);
+        }
+
+        static void UnhandledExceptionHandler(object sender, UnhandledExceptionEventArgs args)
+        {
+            Exception ex = (Exception) args.ExceptionObject;
+            Console.WriteLine($"{ex.ToString()}");
         }
     }
 }

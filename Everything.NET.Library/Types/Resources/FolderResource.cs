@@ -21,12 +21,21 @@ namespace Everything.NET.Library.Types.Resources
 
             lambda(this, contents);
 
+            var subfolder = new List<Task>();
             foreach (var c in contents)
             {
-                var s = await c.GetSize(lambda);
-                
-                Size += s;
+                subfolder.Add(Task.Run(async ()=>
+                {
+                    var s = await c.GetSize(lambda);
+                    var sizeLock = new object();
+                    lock(sizeLock)
+                    {
+                        Size += s;
+                    }
+
+                }));
             }
+            await Task.WhenAll(subfolder);
             return Size;
         }
 

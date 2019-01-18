@@ -17,7 +17,7 @@ namespace Everything.NET.Library.Types.Resources
         public Uri Uri => GetUri();
         public virtual Uri GetUri() => new Uri(Location, Name);
 
-        public virtual async Task<FileSize> GetSize(Action<BaseResource, List<BaseResource>> lambda) => await new Task<FileSize>(() => Size);
+        public virtual async Task<FileSize> GetSize(Action<BaseResource, List<BaseResource>> lambda) => await Task.Run<FileSize>(() => Size);
 
         public BaseResource(RawResource obj)
         {

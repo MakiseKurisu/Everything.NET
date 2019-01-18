@@ -19,7 +19,6 @@ namespace Everything.NET.Library
         {
             http = new HttpClient();
             semaphore = new SemaphoreSlim(Environment.ProcessorCount);
-            Console.WriteLine($"{semaphore} created with{Environment.ProcessorCount} count");
         }
 
         public static Task GetLock()
@@ -41,21 +40,29 @@ namespace Everything.NET.Library
 
             using (var token = new CancellationTokenSource())
             {
-                var get = await http.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead, token.Token);
-
-                var ctype = get.Content.Headers.ContentType;
-                var jsontype = new MediaTypeHeaderValue("application/json");
-                if (param.json && !ctype.Equals(jsontype))
+                //await GetLock();
+                try
                 {
-                    token.Cancel();
-                    throw new HttpRequestException($"HTTP returned unexpected ContentType {ctype}, expecting {jsontype}.");
+                    var get = await http.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead, token.Token);
+
+                    var ctype = get.Content.Headers.ContentType;
+                    var jsontype = new MediaTypeHeaderValue("application/json");
+                    if (param.json && !ctype.Equals(jsontype))
+                    {
+                        token.Cancel();
+                        throw new HttpRequestException($"HTTP returned unexpected ContentType {ctype}, expecting {jsontype}.");
+                    }
+
+                    var json = await get.Content.ReadAsStringAsync();
+
+                    var raw = Json.ToObject<RawQueryResult>(json);
+
+                    return BaseResource.FromRawQueryResult(uri, raw);
                 }
-
-                var json = await get.Content.ReadAsStringAsync();
-
-                var raw = Json.ToObject<RawQueryResult>(json);
-
-                return BaseResource.FromRawQueryResult(uri, raw);
+                finally
+                {
+                    //ReleaseLock();
+                }
             }
         }
 
