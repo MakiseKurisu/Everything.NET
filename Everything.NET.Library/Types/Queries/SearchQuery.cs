@@ -54,7 +54,7 @@ namespace Everything.NET.Library.Types.Queries
 
         public SearchQuery() : base()
         {
-            search = "";
+            search = string.Empty;
             offset = 0;
             count = 4294967295;
             @case = false;
