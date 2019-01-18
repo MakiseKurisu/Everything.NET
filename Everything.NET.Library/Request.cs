@@ -13,10 +13,23 @@ namespace Everything.NET.Library
     public static class Request
     {
         private static HttpClient http;
+        private static SemaphoreSlim semaphore;
 
         static Request()
         {
             http = new HttpClient();
+            semaphore = new SemaphoreSlim(Environment.ProcessorCount);
+            Console.WriteLine($"{semaphore} created with{Environment.ProcessorCount} count");
+        }
+
+        public static void GetLock()
+        {
+            semaphore.Wait();
+        }
+
+        public static int ReleaseLock()
+        {
+            return semaphore.Release();
         }
 
         public static List<BaseResource> Get(Uri u, BaseQuery param)
