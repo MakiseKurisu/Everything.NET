@@ -11,6 +11,9 @@ namespace Everything.NET
         [Option("verbose", Default = false, HelpText = "Display the extra information.", Hidden = false, Required = false)]
         public bool verbose { get; set; }
 
+        [Option("save_response", Default = "", HelpText = "Save the raw response to the given location.", Hidden = false, Required = false)]
+        public string save_response { get; set; }
+
         public bool WriteConsole<T>(T text, int padding)
         {
             padding = padding < 0 ? 0 : padding;
