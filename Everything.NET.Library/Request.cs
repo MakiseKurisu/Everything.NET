@@ -32,12 +32,7 @@ namespace Everything.NET.Library
             return semaphore.Release();
         }
 
-        public static List<BaseResource> Get(Uri u, BaseQuery param)
-        {
-            return GetAsync(u, param).Result;
-        }
-
-        public static async Task<List<BaseResource>> GetAsync(Uri uri, BaseQuery param)
+        public static async Task<List<BaseResource>> Get(Uri uri, BaseQuery param)
         {
             uri = new UriBuilder(uri)
             {
@@ -64,7 +59,7 @@ namespace Everything.NET.Library
             }
         }
 
-        public static async Task<HttpResponseMessage> HeadAsync(Uri uri)
+        public static async Task<HttpResponseMessage> Head(Uri uri)
         {
             uri = new UriBuilder(uri)
             {

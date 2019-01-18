@@ -1,10 +1,9 @@
-﻿using System;
-using CommandLine;
+﻿using System.Threading.Tasks;
 
 namespace Everything.NET.Verbs
 {
     public interface IVerbBase
     {
-        int Action();
+        Task<int> Action();
     }
 }

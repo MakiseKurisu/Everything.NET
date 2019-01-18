@@ -3,6 +3,7 @@ using CommandLine.Text;
 using Everything.NET.Library.Actions;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Everything.NET.Verbs
 {
@@ -17,15 +18,17 @@ namespace Everything.NET.Verbs
             };
         }
 
-        public int Action()
+        public async Task<int> Action()
         {
             var start = new TimeSpan(DateTime.Now.Ticks);
 
             var target = new Uri(uri);
-            var size = SizeAction.Action(target, (folder, content) =>
+            var task = SizeAction.Action(target, (folder, content) =>
             {
                 WriteConsoleLine($"Found subfolder {folder.Uri.LocalPath} with {content.Count} pending resources.");
             });
+
+            var size = await task;
 
             var end = new TimeSpan(DateTime.Now.Ticks);
 

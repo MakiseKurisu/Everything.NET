@@ -8,14 +8,9 @@ namespace Everything.NET.Library.Actions
 {
     public class ListAction
     {
-        public static List<BaseResource> Action(Uri uri, BaseQuery query)
+        public static async Task<List<BaseResource>> Action(Uri uri, BaseQuery query)
         {
-            return ActionAsync(uri, query).Result;
-        }
-
-        public static async Task<List<BaseResource>> ActionAsync(Uri uri, BaseQuery query)
-        {
-            return await Request.GetAsync(uri, query);
+            return await Request.Get(uri, query);
         }
     }
 }

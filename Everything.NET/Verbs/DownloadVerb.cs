@@ -2,6 +2,7 @@
 using CommandLine.Text;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Everything.NET.Verbs
 {
@@ -16,7 +17,7 @@ namespace Everything.NET.Verbs
             };
         }
 
-        public int Action()
+        public async Task<int> Action()
         {
             throw new NotImplementedException();
         }

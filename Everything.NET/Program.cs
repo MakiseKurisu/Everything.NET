@@ -20,7 +20,7 @@ namespace Everything.NET
 
                 Parser.Default.ParseArguments<DownloadVerb, ListVerb, SearchVerb, SizeVerb>(args)
                     .MapResult(
-                      (IVerbBase opts) => opts.Action(),
+                      (IVerbBase opts) => opts.Action().Result,
                       errs => 1);
             }
             catch (Exception ex)
