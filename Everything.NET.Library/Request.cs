@@ -40,29 +40,22 @@ namespace Everything.NET.Library
 
             using (var token = new CancellationTokenSource())
             {
-                //await GetLock();
-                try
+                var get = await http.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead, token.Token);
+
+                var ctype = get.Content.Headers.ContentType;
+                var jsontype = new MediaTypeHeaderValue("application/json");
+                if (param.json && !ctype.Equals(jsontype))
                 {
-                    var get = await http.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead, token.Token);
-
-                    var ctype = get.Content.Headers.ContentType;
-                    var jsontype = new MediaTypeHeaderValue("application/json");
-                    if (param.json && !ctype.Equals(jsontype))
-                    {
-                        token.Cancel();
-                        throw new HttpRequestException($"HTTP returned unexpected ContentType {ctype}, expecting {jsontype}.");
-                    }
-
-                    var json = await get.Content.ReadAsStringAsync();
-
-                    var raw = Json.ToObject<RawQueryResult>(json);
-
-                    return BaseResource.FromRawQueryResult(uri, raw);
+                    token.Cancel();
+                    throw new HttpRequestException($"HTTP returned unexpected ContentType {ctype}, expecting {jsontype}.");
                 }
-                finally
-                {
-                    //ReleaseLock();
-                }
+
+                var json = await get.Content.ReadAsStringAsync();
+
+                var raw = Json.ToObject<RawQueryResult>(json);
+
+                return BaseResource.FromRawQueryResult(uri, raw);
+
             }
         }
 
