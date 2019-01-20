@@ -3,6 +3,7 @@ using Everything.NET.Library.Types.Queries;
 using Everything.NET.Library.Types.Resources;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Threading;
@@ -31,7 +32,7 @@ namespace Everything.NET.Library
             return semaphore.Release();
         }
 
-        public static async Task<List<BaseResource>> Get(Uri uri, BaseQuery param)
+        public static async Task<Stream> Get(Uri uri, BaseQuery param)
         {
             uri = new UriBuilder(uri)
             {
@@ -53,12 +54,7 @@ namespace Everything.NET.Library
                     }
                 }
 
-                var json = await get.Content.ReadAsStringAsync();
-
-                var raw = Json.ToObject<RawQueryResult>(json);
-
-                return BaseResource.FromRawQueryResult(uri, raw);
-
+                return await get.Content.ReadAsStreamAsync();
             }
         }
 

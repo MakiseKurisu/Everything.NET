@@ -10,7 +10,8 @@ namespace Everything.NET.Library.Actions
     {
         public static async Task<List<BaseResource>> Action(Uri uri, BaseQuery query)
         {
-            return await Request.Get(uri, query);
+            var stream = await Request.Get(uri, query);
+            return BaseResource.FromStream(uri, stream);
         }
     }
 }

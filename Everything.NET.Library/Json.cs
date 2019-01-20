@@ -1,25 +1,19 @@
-﻿using System.Web.Script.Serialization;
+﻿using Newtonsoft.Json;
+using System.IO;
 
 namespace Everything.NET.Library
 {
     public static class Json
     {
-        public static T ToObject<T>(string json)
+        public static T ToObject<T>(Stream json)
         {
-            var js = new JavaScriptSerializer()
-            {
-                MaxJsonLength = int.MaxValue,
-            };
-            return js.Deserialize<T>(json);
-        }
+            var js = new JsonSerializer();
 
-        public static string ToJson<T>(T obj)
-        {
-            var js = new JavaScriptSerializer()
+            using (var sr = new StreamReader(json))
+            using (var jsonTextReader = new JsonTextReader(sr))
             {
-                MaxJsonLength = int.MaxValue,
-            };
-            return js.Serialize(obj);
+                return js.Deserialize<T>(jsonTextReader);
+            }
         }
     }
 }

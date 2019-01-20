@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Everything.NET.Library.Types.Resources
@@ -40,6 +41,16 @@ namespace Everything.NET.Library.Types.Resources
             ModifiedTime = string.IsNullOrEmpty(obj.date_modified) ? DateTime.MinValue : DateTime.FromFileTime(Convert.ToInt64(obj.date_modified));
             CreatedTime = string.IsNullOrEmpty(obj.date_created) ? DateTime.MinValue : DateTime.FromFileTime(Convert.ToInt64(obj.date_created));
             Attributes = obj.attributes ?? string.Empty;
+        }
+
+        public static List<BaseResource> FromStream(Uri location, Stream stream)
+        {
+            using (stream)
+            {
+                var raw = Json.ToObject<RawQueryResult>(stream);
+
+                return FromRawQueryResult(location, raw);
+            }
         }
 
         public static List<BaseResource> FromRawQueryResult(Uri location, RawQueryResult r)

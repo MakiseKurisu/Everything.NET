@@ -13,7 +13,8 @@ namespace Everything.NET.Library.Actions
         {
             var parent = uri.LocateParent();
 
-            var content = await Request.Get(parent, new Types.Queries.BaseQuery());
+            var stream = await Request.Get(parent, new Types.Queries.BaseQuery());
+            var content = BaseResource.FromStream(uri, stream);
             var resource = content.Find(r => (r.GetUri().Equals(uri)));
 
             return await resource.GetSize(lambda);
