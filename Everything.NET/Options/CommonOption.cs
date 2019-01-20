@@ -15,7 +15,7 @@ namespace Everything.NET.Options
         [Option("verbose", Default = false, HelpText = "Display the extra information.", Hidden = false, Required = false)]
         public bool verbose { get; set; }
 
-        [Option("save_response", Default = "", HelpText = "Save the raw response to the given location.", Hidden = false, Required = false)]
+        [Option("save_response", Default = "", HelpText = "Save the raw response to the given location. Suppress output.", Hidden = false, Required = false)]
         public string save_response { get; set; }
 
         public bool WriteConsole<T>(T text, int padding)
