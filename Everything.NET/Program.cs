@@ -1,4 +1,5 @@
 ﻿using CommandLine;
+using Everything.NET.Library.Types;
 using Everything.NET.Verbs;
 using System;
 using System.Collections.Generic;
@@ -23,15 +24,16 @@ namespace Everything.NET
                     @"http://173.12.200.6:8060/",
                 };
 
-                var selected_host = 0;
+                var selected_host = 1;
+                var path = new UniversalPath(@"C:/ngrok/nssm-2.24/src");
 
                 var tests = new List<string[]>()
                 {
                     new string[] { "help" },
-                    new string[] { "list", $@"{known_hosts[selected_host]}E:/BaiduNetdiskDownload/" },
-                    new string[] { "size", $@"{known_hosts[selected_host]}E:/BaiduNetdiskDownload/", "--verbose", "1" },
-                    new string[] { "search", $@"{known_hosts[selected_host]}", "-s", @"E:\BaiduNetDIskDownload", "--size_column", "1", "--date_modified_column", "1", "--sort", "date_modified", "--verbose", "1" },
-                    new string[] { "download", $@"{known_hosts[selected_host]}E:/금서목록 3기/" },
+                    new string[] { "list", $"{known_hosts[selected_host]}{path.UriPath}" },
+                    new string[] { "size", $"{known_hosts[selected_host]}{path.UriPath}", "--verbose", "1" },
+                    new string[] { "search", $"{known_hosts[selected_host]}", "-s", path.WindowsPath, "--size_column", "1", "--date_modified_column", "1", "--sort", "date_modified", "--verbose", "1" },
+                    new string[] { "download", $"{known_hosts[selected_host]}{path.UriPath}" },
                 };
 
                 args = tests[3];
