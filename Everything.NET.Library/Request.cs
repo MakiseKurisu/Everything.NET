@@ -42,12 +42,15 @@ namespace Everything.NET.Library
             {
                 var get = await http.GetAsync(uri, HttpCompletionOption.ResponseHeadersRead, token.Token);
 
-                var ctype = get.Content.Headers.ContentType;
-                var jsontype = new MediaTypeHeaderValue("application/json");
-                if (param.json && !ctype.Equals(jsontype))
+                if (Option.no_mime_type_check == false)
                 {
-                    token.Cancel();
-                    throw new HttpRequestException($"HTTP returned unexpected ContentType {ctype}, expecting {jsontype}.");
+                    var ctype = get.Content.Headers.ContentType;
+                    var jsontype = new MediaTypeHeaderValue("application/json");
+                    if (param.json && !ctype.Equals(jsontype))
+                    {
+                        token.Cancel();
+                        throw new HttpRequestException($"HTTP returned unexpected ContentType {ctype}, expecting {jsontype}.");
+                    }
                 }
 
                 var json = await get.Content.ReadAsStringAsync();
