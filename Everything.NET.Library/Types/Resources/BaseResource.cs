@@ -12,7 +12,7 @@ namespace Everything.NET.Library.Types.Resources
         public BaseResourceType Type { get; set; }
         public string Name { get; set; }
 
-        public string Path { get; set; }
+        public UniversalPath Path { get; set; }
         public FileSize Size { get; set; }
         public DateTime ModifiedTime { get; set; }
         public DateTime CreatedTime { get; set; }
@@ -35,7 +35,7 @@ namespace Everything.NET.Library.Types.Resources
             Type = (BaseResourceType) Enum.Parse(typeof(BaseResourceType), obj.type, true);
             Name = obj.name;
 
-            Path = obj.path ?? string.Empty;
+            Path = new UniversalPath(obj.path ?? string.Empty);
             Size = new FileSize(string.IsNullOrEmpty(obj.size) ? 0 : Convert.ToUInt64(obj.size));
             ModifiedTime = string.IsNullOrEmpty(obj.date_modified) ? DateTime.MinValue : DateTime.FromFileTime(Convert.ToInt64(obj.date_modified));
             CreatedTime = string.IsNullOrEmpty(obj.date_created) ? DateTime.MinValue : DateTime.FromFileTime(Convert.ToInt64(obj.date_created));

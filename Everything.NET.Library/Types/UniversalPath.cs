@@ -3,7 +3,7 @@
     public class UniversalPath
     {
         private string Path;
-        UniversalPath(string p)
+        public UniversalPath(string p)
         {
             Path = RemoveLeadingSlash(ConvertToUriPath(p));
         }
