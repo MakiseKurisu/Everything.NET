@@ -5,5 +5,7 @@ namespace Everything.NET.Verbs
     public interface IVerbBase
     {
         Task<int> Action();
+
+        IVerbBase SetLibraryOption();
     }
 }

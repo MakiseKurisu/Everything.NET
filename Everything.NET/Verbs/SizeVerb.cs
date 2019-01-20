@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 namespace Everything.NET.Verbs
 {
     [Verb("size", HelpText = "Return size of a given target.")]
-    public class SizeVerb: CommonOption, IVerbBase
+    public class SizeVerb: CommonOption
     {
         [Usage]
         public static IEnumerable<Example> Examples => new List<Example>() {
                 new Example("Return size of a given target.", new CommonOption { uri = @"http://www.example.com:8080/C:"})
             };
 
-        public async Task<int> Action()
+        public override async Task<int> Action()
         {
             var start = new TimeSpan(DateTime.Now.Ticks);
 

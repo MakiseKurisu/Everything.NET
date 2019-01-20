@@ -32,7 +32,7 @@ namespace Everything.NET
                     new string[] { "help" },
                     new string[] { "list", $"{known_hosts[selected_host]}{path.UriPath}" },
                     new string[] { "size", $"{known_hosts[selected_host]}{path.UriPath}", "--verbose", "1" },
-                    new string[] { "search", $"{known_hosts[selected_host]}", "-s", path.WindowsPath, "--size_column", "1", "--date_modified_column", "1", "--sort", "date_modified", "--verbose", "1" },
+                    new string[] { "search", $"{known_hosts[selected_host]}", "-s", path.WindowsPath, "--size_column", "1", "--date_modified_column", "1", "--sort", "date_modified", "--verbose", "1", "--no_mime_type_check" },
                     new string[] { "download", $"{known_hosts[selected_host]}{path.UriPath}" },
                 };
 
@@ -41,7 +41,7 @@ namespace Everything.NET
 #endif
             Parser.Default.ParseArguments<ListVerb, SizeVerb, SearchVerb>(args)
                 .MapResult(
-                  (IVerbBase opts) => opts.Action().Result,
+                  (IVerbBase opts) => opts.SetLibraryOption().Action().Result,
                   errs => 1);
         }
 

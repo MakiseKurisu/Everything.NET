@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 namespace Everything.NET.Verbs
 {
     [Verb("download", HelpText = "Download a single file or every files under a folder.")]
-    public class DownloadVerb: CommonOption, IVerbBase
+    public class DownloadVerb: CommonOption
     {
         [Usage]
         public static IEnumerable<Example> Examples
@@ -18,7 +18,7 @@ namespace Everything.NET.Verbs
             };
         }
 
-        public async Task<int> Action()
+        public override async Task<int> Action()
         {
             throw new NotImplementedException();
         }
