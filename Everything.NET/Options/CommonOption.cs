@@ -1,5 +1,9 @@
 ﻿using CommandLine;
+using Everything.NET.Library.Types;
+using Everything.NET.Library.Types.Resources;
 using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Everything.NET
 {
@@ -82,6 +86,42 @@ namespace Everything.NET
             {
                 Console.WriteLine(text.ToString());
             }
+        }
+
+        public async Task<int> Print(Task<List<BaseResource>> resources)
+        {
+            var start = new TimeSpan(DateTime.Now.Ticks);
+
+            var size = new FileSize();
+
+            WriteVerbose("Name", Console.WindowWidth - 8 * 6);
+            WriteVerbose("Type", 8);
+            WriteVerbose("Size", 8 * 2);
+            WriteVerboseLine("Modified Date");
+
+            var ret = await resources;
+            foreach (var i in ret)
+            {
+                size += i.Size;
+
+                WriteVerbose(i.Name, Console.WindowWidth - 8 * 6);
+                WriteVerbose(i.Type, 8);
+                WriteVerbose(i.Size, 8 * 2);
+                WriteVerboseLine(i.ModifiedTime);
+            }
+
+            var end = new TimeSpan(DateTime.Now.Ticks);
+
+            WriteVerboseLine();
+
+            WriteConsoleLine($"Operation completed in {end - start}.");
+
+            WriteConsole($"Total Count: {size.Count}", Console.WindowWidth - 8 * 7);
+            WriteConsole("Total Size:", 8 * 2);
+            WriteConsole(size, 8 * 5);
+            WriteConsoleLine();
+
+            return 0;
         }
     }
 }

@@ -19,9 +19,7 @@ namespace Everything.NET.Verbs
         {
             var start = new TimeSpan(DateTime.Now.Ticks);
 
-            var target = new Uri(uri);
-
-            var task = SizeAction.Action(target,
+            var task = SizeAction.Action(new Uri(uri),
             (folder, content) =>
             {
                 WriteVerboseLine($"Found subfolder {folder.Uri.LocalPath} with {content.Count} pending resources.");
@@ -32,8 +30,13 @@ namespace Everything.NET.Verbs
             var end = new TimeSpan(DateTime.Now.Ticks);
 
             WriteVerboseLine();
-            WriteVerboseLine($"Operation completed in {end - start}.");
-            WriteConsoleLine($"Target {target.LocalPath} contains {size.Count} files, consuming {size} of storage space.");
+
+            WriteConsoleLine($"Operation completed in {end - start}.");
+
+            WriteConsole($"Total Count: {size.Count}", Console.WindowWidth - 8 * 7);
+            WriteConsole("Total Size:", 8 * 2);
+            WriteConsole(size, 8 * 5);
+            WriteConsoleLine();
 
             return 0;
         }

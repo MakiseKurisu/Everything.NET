@@ -18,23 +18,7 @@ namespace Everything.NET.Verbs
 
         public async Task<int> Action()
         {
-            var task = ListAction.Action(new Uri(uri), new BaseQuery(this));
-
-            WriteConsole("Name", Console.WindowWidth - 8 * 6);
-            WriteConsole("Type", 8);
-            WriteConsole("Size", 16);
-            WriteConsoleLine("Modified Date");
-
-            var ret = await task;
-            foreach (var i in ret)
-            {
-                WriteConsole(i.Name, Console.WindowWidth - 8 * 6);
-                WriteConsole(i.Type, 8);
-                WriteConsole(i.Size, 16);
-                WriteConsoleLine(i.ModifiedTime);
-            }
-
-            return 0;
+            return await Print(ListAction.Action(new Uri(uri), new BaseQuery(this)));
         }
     }
 }
