@@ -2,6 +2,7 @@
 using CommandLine.Text;
 using Everything.NET.Library.Actions;
 using Everything.NET.Library.Types.Queries;
+using Everything.NET.Options;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;

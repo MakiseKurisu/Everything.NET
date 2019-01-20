@@ -5,9 +5,9 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace Everything.NET
+namespace Everything.NET.Options
 {
-    public class CommonOption
+    public class CommonOption: CompatibilityOption
     {
         [Value(0, MetaName = "uri", Required = true, HelpText = "Target URI.")]
         public string uri { get; set; }

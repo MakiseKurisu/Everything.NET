@@ -1,7 +1,7 @@
 ﻿using CommandLine;
 using Everything.NET.Library.RawTypes.Queries;
 
-namespace Everything.NET
+namespace Everything.NET.Options
 {
     public class ListOption: CommonOption, RawBaseQuery
     {

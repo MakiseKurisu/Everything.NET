@@ -2,6 +2,7 @@
 using CommandLine.Text;
 using System;
 using System.Collections.Generic;
+using Everything.NET.Options;
 using System.Threading.Tasks;
 
 namespace Everything.NET.Verbs

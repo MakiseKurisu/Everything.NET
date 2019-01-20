@@ -3,6 +3,7 @@ using CommandLine.Text;
 using Everything.NET.Library.Actions;
 using System;
 using System.Collections.Generic;
+using Everything.NET.Options;
 using System.Threading.Tasks;
 
 namespace Everything.NET.Verbs
