@@ -88,7 +88,7 @@ namespace Everything.NET.Options
             }
         }
 
-        public async Task<int> Print(Task<List<BaseResource>> resources)
+        public int Print(List<BaseResource> resources)
         {
             var start = new TimeSpan(DateTime.Now.Ticks);
 
@@ -99,7 +99,7 @@ namespace Everything.NET.Options
             WriteVerbose("Size", 8 * 2);
             WriteVerboseLine("Modified Date");
 
-            var ret = await resources;
+            var ret = resources;
             foreach (var i in ret)
             {
                 size += i.Size;

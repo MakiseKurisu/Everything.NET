@@ -6,6 +6,7 @@ using Everything.NET.Library.Types.Queries;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using Everything.NET.Library.Types.Resources;
 
 namespace Everything.NET.Verbs
 {
@@ -19,7 +20,11 @@ namespace Everything.NET.Verbs
 
         public override async Task<int> Action()
         {
-            return await Print(SearchAction.Action(new Uri(uri), new SearchQuery(this)));
+            var u = new Uri(uri);
+            var stream = await SearchAction.Action(u, new SearchQuery(this));
+            var contents = BaseResource.FromStream(u, stream);
+                
+            return Print(contents);
         }
     }
 }

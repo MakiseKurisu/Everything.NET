@@ -2,6 +2,7 @@
 using CommandLine.Text;
 using Everything.NET.Library.Actions;
 using Everything.NET.Library.Types.Queries;
+using Everything.NET.Library.Types.Resources;
 using Everything.NET.Options;
 using System;
 using System.Collections.Generic;
@@ -19,7 +20,11 @@ namespace Everything.NET.Verbs
 
         public override async Task<int> Action()
         {
-            return await Print(ListAction.Action(new Uri(uri), new BaseQuery(this)));
+            var u = new Uri(uri);
+            var stream = await ListAction.Action(u, new BaseQuery(this));
+            var contents = BaseResource.FromStream(u, stream);
+
+            return Print(contents);
         }
     }
 }
