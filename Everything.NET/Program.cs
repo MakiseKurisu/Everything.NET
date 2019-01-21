@@ -24,16 +24,23 @@ namespace Everything.NET
                     @"http://173.12.200.6:8060/",
                 };
 
-                var selected_host = 1;
-                var path = new UniversalPath(@"C:/ngrok/nssm-2.24/src");
+                var host_path = new List<UniversalPath>()
+                {
+                    new UniversalPath(@"E:/뿌요뿌요2"),
+                    new UniversalPath(@"C:/ngrok/nssm-2.24/src"),
+                    new UniversalPath(@"C:/ngrok/nssm-2.24/src"),
+                    new UniversalPath(@"C:/ngrok/nssm-2.24/src"),
+                };
+
+                var selected_host = 0;
 
                 var tests = new List<string[]>()
                 {
                     new string[] { "help" },
-                    new string[] { "list", $"{known_hosts[selected_host]}{path.UriPath}" },
-                    new string[] { "size", $"{known_hosts[selected_host]}{path.UriPath}", "--verbose", "1" },
-                    new string[] { "search", $"{known_hosts[selected_host]}", "-s", path.WindowsPath, "--size_column", "1", "--date_modified_column", "1", "--sort", "date_modified", "--verbose", "1", "--no_mime_type_check" },
-                    new string[] { "download", $"{known_hosts[selected_host]}{path.UriPath}" },
+                    new string[] { "list", $"{known_hosts[selected_host]}{host_path[selected_host].UriPath}" },
+                    new string[] { "size", $"{known_hosts[selected_host]}{host_path[selected_host].UriPath}", "--verbose", "1" },
+                    new string[] { "search", $"{known_hosts[selected_host]}", "-s", host_path[selected_host].WindowsPath, "--size_column", "1", "--date_modified_column", "1", "--sort", "date_modified", "--verbose", "1", "--no_mime_type_check" },
+                    new string[] { "download", $"{known_hosts[selected_host]}{host_path[selected_host].UriPath}" },
                 };
 
                 args = tests[3];
