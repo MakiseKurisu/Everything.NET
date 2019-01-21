@@ -18,7 +18,7 @@ namespace Everything.NET.Verbs
             };
         }
 
-        public override async Task<int> Action()
+        public override async Task<object> Fetch()
         {
             throw new NotImplementedException();
         }

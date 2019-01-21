@@ -10,7 +10,17 @@ namespace Everything.NET.Options
         [Option("no_mime_type_check", Default = false, HelpText = "Disable MIME type check. Useful when detecting bad response early, but not supported in older Everything.", Hidden = false, Required = false)]
         public bool no_mime_type_check { get; set; }
 
-        public virtual Task<int> Action()
+        public virtual Task<int> Output()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual Task<object> Fetch()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public virtual Task<int> Display(Task<object> obj)
         {
             throw new System.NotImplementedException();
         }

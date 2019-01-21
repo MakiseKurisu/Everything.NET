@@ -18,6 +18,9 @@ namespace Everything.NET.Options
         [Option("save_response", Default = "", HelpText = "Save the raw response to the given location. Suppress output.", Hidden = false, Required = false)]
         public string save_response { get; set; }
 
+        [Option("load_response", Default = "", HelpText = "Load the raw response from the given location. Suppress fetch.", Hidden = false, Required = false)]
+        public string load_response { get; set; }
+
         public bool WriteConsole<T>(T text, int padding)
         {
             padding = padding < 0 ? 0 : padding;
@@ -88,9 +91,30 @@ namespace Everything.NET.Options
             }
         }
 
-        public int Print(List<BaseResource> resources)
+        public override Task<int> Output()
         {
-            var start = new TimeSpan(DateTime.Now.Ticks);
+            var response = string.IsNullOrEmpty(load_response) ? Fetch() : Load(load_response);
+
+            return string.IsNullOrEmpty(save_response) ? Display(response) : Save(response);
+        }
+
+        public async Task<object> Load(string location)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async Task<int> Save(Task<object> obj)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public async override Task<int> Display(Task<object> obj)
+        {
+            var resources = await obj as List<BaseResource>;
+            if (resources == null)
+            {
+                return await base.Display(obj);
+            }
 
             var size = new FileSize();
 
@@ -110,11 +134,7 @@ namespace Everything.NET.Options
                 WriteVerboseLine(i.ModifiedTime);
             }
 
-            var end = new TimeSpan(DateTime.Now.Ticks);
-
             WriteVerboseLine();
-
-            WriteConsoleLine($"Operation completed in {end - start}.");
 
             WriteConsole($"Total Count: {size.Count}", Console.WindowWidth - 8 * 7);
             WriteConsole("Total Size:", 8 * 2);

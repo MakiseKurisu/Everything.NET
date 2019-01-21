@@ -41,7 +41,7 @@ namespace Everything.NET
 #endif
             Parser.Default.ParseArguments<ListVerb, SizeVerb, SearchVerb>(args)
                 .MapResult(
-                  (IVerbBase opts) => opts.SetLibraryOption().Action().Result,
+                  (IVerbBase opts) => opts.SetLibraryOption().Output().Result,
                   errs => 1);
         }
 

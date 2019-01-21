@@ -1,9 +1,10 @@
 ﻿using CommandLine;
 using CommandLine.Text;
 using Everything.NET.Library.Actions;
+using Everything.NET.Library.Types;
+using Everything.NET.Options;
 using System;
 using System.Collections.Generic;
-using Everything.NET.Options;
 using System.Threading.Tasks;
 
 namespace Everything.NET.Verbs
@@ -16,23 +17,24 @@ namespace Everything.NET.Verbs
                 new Example("Return size of a given target.", new CommonOption { uri = @"http://www.example.com:8080/C:"})
             };
 
-        public override async Task<int> Action()
+        public override async Task<object> Fetch()
         {
-            var start = new TimeSpan(DateTime.Now.Ticks);
-
-            var task = SizeAction.Action(new Uri(uri),
+            return await SizeAction.Action(new Uri(uri),
             (folder, content) =>
             {
                 WriteVerboseLine($"Found subfolder {folder.Uri.LocalPath} with {content.Count} pending resources.");
             });
+        }
 
-            var size = await task;
-
-            var end = new TimeSpan(DateTime.Now.Ticks);
+        public override async Task<int> Display(Task<object> obj)
+        {
+            var size = await obj as FileSize;
+            if (size == null)
+            {
+                return await base.Display(obj);
+            }
 
             WriteVerboseLine();
-
-            WriteConsoleLine($"Operation completed in {end - start}.");
 
             WriteConsole($"Total Count: {size.Count}", Console.WindowWidth - 8 * 7);
             WriteConsole("Total Size:", 8 * 2);

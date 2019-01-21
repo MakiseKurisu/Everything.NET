@@ -18,13 +18,13 @@ namespace Everything.NET.Verbs
                 new Example("List all files under a folder.", new ListOption { uri = @"http://www.example.com:8080/C:", sort = "name", ascending = 1 })
             };
 
-        public override async Task<int> Action()
+        public override async Task<object> Fetch()
         {
             var u = new Uri(uri);
             var stream = await ListAction.Action(u, new BaseQuery(this));
             var contents = BaseResource.FromStream(u, stream);
 
-            return Print(contents);
+            return contents;
         }
     }
 }

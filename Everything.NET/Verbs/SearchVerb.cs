@@ -18,13 +18,13 @@ namespace Everything.NET.Verbs
                 new Example("Search files that match certein criteria.", new SearchOption { uri = @"http://www.example.com:8080/C:"})
             };
 
-        public override async Task<int> Action()
+        public override async Task<object> Fetch()
         {
             var u = new Uri(uri);
             var stream = await SearchAction.Action(u, new SearchQuery(this));
             var contents = BaseResource.FromStream(u, stream);
                 
-            return Print(contents);
+            return contents;
         }
     }
 }
