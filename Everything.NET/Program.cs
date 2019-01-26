@@ -43,10 +43,10 @@ namespace Everything.NET
                     new string[] { "download", $"{known_hosts[selected_host]}{host_path[selected_host].UriPath}" },
                 };
 
-                args = tests[3];
+                args = tests[4];
             }
 #endif
-            Parser.Default.ParseArguments<ListVerb, SizeVerb, SearchVerb>(args)
+            Parser.Default.ParseArguments<ListVerb, SizeVerb, SearchVerb, DownloadVerb>(args)
                 .MapResult(
                   (IVerbBase opts) => opts.SetLibraryOption().Output().Result,
                   errs => 1);
