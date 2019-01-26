@@ -22,8 +22,10 @@ namespace Everything.NET.Library.Types.Resources
             await Request.GetLock();
             try
             {
-                var stream = await ListAction.Action(GetUri(), new Queries.BaseQuery());
-                contents = BaseResource.FromStream(GetUri(), stream);
+                using (var stream = await ListAction.Action(GetUri(), new Queries.BaseQuery()))
+                {
+                    contents = BaseResource.FromStream(GetUri(), stream);
+                }
             }
             finally
             {

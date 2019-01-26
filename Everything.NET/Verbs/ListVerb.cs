@@ -21,10 +21,10 @@ namespace Everything.NET.Verbs
         public override async Task<object> Fetch()
         {
             var u = new Uri(uri);
-            var stream = await ListAction.Action(u, new BaseQuery(this));
-            var contents = BaseResource.FromStream(u, stream);
-
-            return contents;
+            using (var stream = await ListAction.Action(u, new BaseQuery(this)))
+            {
+                return BaseResource.FromStream(u, stream);
+            }
         }
     }
 }

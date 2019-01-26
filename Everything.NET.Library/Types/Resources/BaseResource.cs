@@ -43,6 +43,11 @@ namespace Everything.NET.Library.Types.Resources
             Attributes = obj.attributes ?? string.Empty;
         }
 
+        public BaseResource(Uri uri)
+        {
+            var header = Request.Head(uri).Result;
+        }
+
         public static List<BaseResource> FromStream(Uri location, Stream stream)
         {
             using (stream)

@@ -45,6 +45,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Actions\DownloadAction.cs" />
     <Compile Include="Actions\ListAction.cs" />
     <Compile Include="Actions\SearchAction.cs" />
     <Compile Include="Actions\SizeAction.cs" />
