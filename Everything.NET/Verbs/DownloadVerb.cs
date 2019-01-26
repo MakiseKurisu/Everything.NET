@@ -6,7 +6,6 @@ using Everything.NET.Library.Types.Resources;
 using Everything.NET.Options;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace Everything.NET.Verbs
@@ -21,18 +20,18 @@ namespace Everything.NET.Verbs
 
         public override async Task<object> Fetch()
         {
-            return DownloadAction.Action(new Uri(uri), new BaseQuery(this), x =>
+            return await DownloadAction.Action(new Uri(uri), new BaseQuery(this), x =>
             {
                 switch (x.Type)
                 {
                     case BaseResourceType.File:
                         {
-                            WriteConsoleLine($"Start downloading {x.Name}, size {x.Size}.");
+                            WriteVerboseLine($"Start downloading {x.Name}, size {x.Size}.");
                             break;
                         }
                     case BaseResourceType.Folder:
                         {
-                            WriteConsoleLine($"Enter folder {x.Name}.");
+                            WriteVerboseLine($"Enter folder {x.Name}.");
                             break;
                         }
                 }
@@ -41,7 +40,7 @@ namespace Everything.NET.Verbs
 
         public override async Task<int> Display(Task<object> obj)
         {
-            //throw new NotImplementedException();
+            WriteConsoleLine($"Download completed.");
             return 0;
         }
     }
